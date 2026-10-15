@@ -1,0 +1,2193 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="bingbot" content="noindex, nofollow">
+<meta name="Twitterbot" content="noindex, nofollow">
+<meta name="GPTBot" content="noindex, nofollow">
+<meta name="ChatGPT-User" content="noindex, nofollow">
+<meta name="Google-Extended" content="noindex, nofollow">
+<meta name="CCBot" content="noindex, nofollow">
+<meta name="anthropic-ai" content="noindex, nofollow">
+<meta name="Claude-Web" content="noindex, nofollow">
+<meta name="GoogleOther" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<title>小妲的贡n寻亲之旅</title>
+<style>
+  :root {
+    --bg: #12081c;
+    --card: #1c0f2e;
+    --card-border: rgba(236, 72, 153, 0.35);
+    --text: #fce7f3;
+    --muted: #c4b5c9;
+    --accent: #f472b6;
+    --accent2: #e879f9;
+    --goddess: #fbcfe8;
+    --choice: #2a1538;
+    --choice-hover: #3b1f4d;
+    --glow: 0 0 28px rgba(236, 72, 153, 0.3);
+    --warn: #fda4af;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    height: 100%;
+    overflow: hidden;
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    background-image:
+      radial-gradient(ellipse at 15% 10%, rgba(236, 72, 153, 0.16) 0%, transparent 50%),
+      radial-gradient(ellipse at 85% 90%, rgba(168, 85, 247, 0.12) 0%, transparent 50%);
+    color: var(--text);
+    line-height: 1.55;
+    padding: 6px 8px 8px;
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+  .container {
+    max-width: 640px;
+    margin: 0 auto;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .scene {
+    display: none;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 10px 12px 8px;
+    box-shadow: var(--glow);
+    animation: fade 0.28s ease;
+    position: relative;
+    overflow: hidden;
+    flex: 1;
+    min-height: 0;
+    flex-direction: column;
+  }
+  .scene.active {
+    display: flex;
+  }
+  @keyframes fade {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: none; }
+  }
+  .scene-body {
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .narr {
+    color: var(--goddess);
+    font-size: 0.92rem;
+    white-space: pre-wrap;
+    margin-bottom: 6px;
+    flex-shrink: 0;
+    text-align: left;
+    word-break: break-word;
+    line-height: 1.65;
+  }
+  .task {
+    background: rgba(236, 72, 153, 0.12);
+    border: 1px solid rgba(236, 72, 153, 0.35);
+    border-radius: 8px;
+    padding: 8px 10px;
+    margin: 6px 0;
+    font-size: 0.88rem;
+    color: var(--warn);
+    line-height: 1.55;
+    white-space: pre-wrap;
+    flex-shrink: 0;
+    text-align: left;
+    word-break: break-word;
+  }
+  .quote {
+    border-left: 3px solid var(--accent);
+    padding-left: 10px;
+    color: var(--accent2);
+    margin: 6px 0;
+    font-style: italic;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+  }
+  .choice {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 10px 12px;
+    margin-bottom: 5px;
+    background: var(--choice);
+    border: 1px solid rgba(236, 72, 153, 0.25);
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 0.88rem;
+    cursor: pointer;
+    transition: 0.18s;
+    font-family: inherit;
+    position: relative;
+    flex-shrink: 0;
+    line-height: 1.4;
+  }
+  .choice:hover, .choice:active {
+    border-color: var(--accent);
+    background: var(--choice-hover);
+    box-shadow: 0 0 12px rgba(244, 114, 182, 0.25);
+  }
+  .choice.selected {
+    border-color: #f472b6;
+    background: linear-gradient(135deg, #4a1f5c, #3b1f4d);
+    box-shadow: 0 0 18px rgba(244, 114, 182, 0.45), inset 0 0 12px rgba(236, 72, 153, 0.15);
+    color: #fff;
+  }
+  .choice.selected::after {
+    content: " ✓";
+    color: #f472b6;
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+  .end {
+    text-align: center;
+    color: var(--muted);
+    padding: 12px 6px;
+    line-height: 1.7;
+    font-size: 0.85rem;
+  }
+  .end-title {
+    color: var(--accent);
+    font-size: 1rem;
+    margin-bottom: 8px;
+    text-shadow: 0 0 12px rgba(244, 114, 182, 0.4);
+  }
+  .progress {
+    height: 3px;
+    background: #3b1a4d;
+    border-radius: 2px;
+    margin-bottom: 6px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #ec4899, #a855f7);
+    width: 0%;
+    transition: width 0.35s ease;
+  }
+  .scene-img {
+    width: 100%;
+    margin: 0 0 8px 0;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid rgba(236, 72, 153, 0.28);
+    background: #0d0614;
+    flex: 1 1 auto;
+    min-height: 0;
+    max-height: 38vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .scene-img img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-height: 38vh;
+    object-fit: contain;
+    object-position: center;
+  }
+  .inline-qrs {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 6px 0;
+    flex-shrink: 0;
+  }
+  .inline-qrs div { text-align: center; }
+  .inline-qrs img {
+    width: 88px;
+    height: 88px;
+    object-fit: contain;
+    border: 2px solid rgba(244, 114, 182, 0.5);
+    border-radius: 6px;
+    background: #fff;
+  }
+  .inline-qrs p {
+    color: var(--muted);
+    font-size: 0.65rem;
+    margin-bottom: 2px;
+  }
+  /* 双收款码：微信与支付宝并排、整体居中 */
+  /* 收款码区域透明无底框，避免切换/放大时露出黑色背景 */
+  .scene-img.qr-scene {
+    flex: 0 0 auto;
+    min-height: 0;
+    max-height: none;
+    height: auto;
+    padding: 0;
+    box-sizing: border-box;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    overflow: visible;
+  }
+  .scene-img.qr-scene .inline-qrs {
+    width: 100%;
+    gap: clamp(12px, 4vw, 22px);
+    margin: 0;
+    align-items: flex-start;
+  }
+  .scene-img.qr-scene .inline-qrs > div {
+    flex: 0 1 auto;
+    min-width: 0;
+  }
+  .scene-img.qr-scene .inline-qrs img {
+    width: clamp(112px, 34vw, 148px);
+    height: clamp(112px, 34vw, 148px);
+    max-width: 100%;
+    box-sizing: border-box;
+    border: 1px solid rgba(244, 114, 182, 0.35);
+    border-radius: 4px;
+    background: #fff;
+  }
+  .inline-qrs img { max-width: 100%; }
+  .disclaimer-box {
+    background: rgba(253, 164, 175, 0.08);
+    border: 1px solid rgba(253, 164, 175, 0.35);
+    border-radius: 10px;
+    padding: 10px 10px;
+    margin-bottom: 8px;
+    font-size: 0.84rem;
+    color: var(--muted);
+    line-height: 1.55;
+    flex-shrink: 0;
+  }
+  .disclaimer-box strong {
+    color: var(--warn);
+    display: block;
+    margin-bottom: 4px;
+    font-size: 0.88rem;
+  }
+  .amount-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+    margin: 6px 0;
+    flex-shrink: 0;
+  }
+  .amount-grid .choice {
+    text-align: center;
+    margin-bottom: 0;
+    font-size: 0.8rem;
+    padding: 8px 8px;
+  }
+  .amount-grid .choice.selected::after { display: none; }
+  .note {
+    font-size: 0.72rem;
+    color: var(--muted);
+    margin-top: 4px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+  .pay-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    background: rgba(10, 4, 18, 0.94);
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 12px;
+  }
+  .pay-overlay.show { display: flex; }
+  .pay-card {
+    background: #1c0f2e;
+    border: 1px solid rgba(236, 72, 153, 0.45);
+    border-radius: 14px;
+    padding: 14px 12px 12px;
+    max-width: 340px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 0 28px rgba(236, 72, 153, 0.3);
+  }
+  .pay-card h3 {
+    color: var(--accent);
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    margin-bottom: 4px;
+  }
+  .pay-card .tip {
+    color: var(--warn);
+    font-size: 0.82rem;
+    margin-bottom: 8px;
+  }
+  .pay-btn {
+    display: block;
+    width: 100%;
+    padding: 11px;
+    margin-top: 6px;
+    border: 1px solid var(--accent);
+    border-radius: 8px;
+    background: linear-gradient(135deg, #be185d, #ec4899);
+    color: #fff;
+    font-size: 0.88rem;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .pay-btn:active { opacity: 0.85; }
+  .nav-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 6px;
+    flex-shrink: 0;
+  }
+  .nav-btn {
+    flex: 1;
+    padding: 9px 8px;
+    border-radius: 8px;
+    font-size: 0.82rem;
+    font-family: inherit;
+    cursor: pointer;
+    border: 1px solid rgba(236, 72, 153, 0.3);
+    background: #241430;
+    color: var(--muted);
+    transition: 0.18s;
+  }
+  .nav-btn:hover:not(:disabled) {
+    border-color: var(--accent);
+    color: var(--text);
+  }
+  .nav-btn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+  #boot-layer {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: #0a0412;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  #boot-layer.hidden { display: none; }
+  .boot-loading { text-align: center; color: var(--muted); }
+  .boot-loading .spinner {
+    width: 42px; height: 42px;
+    border: 3px solid rgba(236, 72, 153, 0.25);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    margin: 0 auto 16px;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .boot-loading p { font-size: 0.9rem; letter-spacing: 1px; }
+  .boot-progress {
+    width: 200px; height: 4px;
+    background: #2a1538; border-radius: 2px;
+    margin: 14px auto 0; overflow: hidden;
+  }
+  .boot-progress-bar {
+    height: 100%; width: 0%;
+    background: linear-gradient(90deg, #ec4899, #a855f7);
+    transition: width 0.2s ease;
+  }
+  #intro-layer {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9998;
+    background: #000;
+    cursor: pointer;
+    overflow: hidden;
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity 0.45s ease, transform 0.45s ease;
+  }
+  #intro-layer.show { display: block; }
+  #intro-layer.leaving {
+    opacity: 0;
+    transform: scale(1.08);
+    pointer-events: none;
+  }
+  #intro-img {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    background: #000;
+  }
+  .intro-text {
+    position: absolute;
+    left: 0; right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: center;
+    padding: 0 16px;
+    pointer-events: none;
+    z-index: 2;
+  }
+  .intro-title {
+    display: inline-block;
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    line-height: 1.4;
+    white-space: nowrap;
+    max-width: 100%;
+    text-shadow:
+      0 0 4px #fff,
+      0 0 8px #fff,
+      0 0 12px rgba(255, 255, 255, 0.85),
+      0 0 18px #ff2d55,
+      0 0 28px #ff2d55,
+      0 0 40px rgba(255, 45, 85, 0.85),
+      0 0 55px #ffcc00,
+      0 0 75px rgba(255, 204, 0, 0.7),
+      0 2px 10px rgba(0, 0, 0, 0.75);
+    animation: titleNeonFloat 2.8s ease-in-out infinite;
+  }
+  @keyframes titleNeonFloat {
+    0%, 100% {
+      transform: translateY(0);
+      filter: brightness(0.92);
+    }
+    50% {
+      transform: translateY(-7px);
+      filter: brightness(1.18);
+    }
+  }
+  .intro-light-line {
+    display: block;
+    height: 2px;
+    margin: 14px auto 0;
+    border-radius: 2px;
+    background: linear-gradient(90deg, transparent 0%, #fff 15%, #ff2d55 50%, #ffcc00 85%, transparent 100%);
+    box-shadow: 0 0 6px rgba(255,255,255,0.9), 0 0 12px rgba(255,45,85,0.85);
+    transform-origin: center;
+    animation: lightLinePulse 2.4s ease-in-out infinite;
+  }
+  @keyframes lightLinePulse {
+    0%, 100% { width: 42%; opacity: 0.45; }
+    50% { width: 78%; opacity: 1; }
+  }
+  .intro-hint {
+    display: block;
+    margin-top: 18px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 3px;
+    color: #ffcc66;
+    text-shadow: 0 0 6px rgba(255,204,0,0.9), 0 0 12px rgba(255,45,85,0.75);
+    animation: hintBreathe 2s ease-in-out infinite;
+  }
+  @keyframes hintBreathe {
+    0%, 100% { opacity: 0.55; transform: scale(0.96); }
+    50% { opacity: 1; transform: scale(1.06); }
+  }
+  #main-app {
+    display: none;
+    height: 100%;
+    height: 100dvh;
+  }
+  #main-app.show { display: block; }
+  #fx-layer {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    pointer-events: auto;
+    overflow: hidden;
+  }
+  #fx-layer.show { display: block; }
+  .fx-black {
+    position: absolute;
+    inset: 0;
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .fx-black .fx-msg {
+    color: #f9a8d4;
+    font-size: 1.25rem;
+    letter-spacing: 2px;
+    text-align: center;
+    padding: 0 24px;
+    line-height: 1.75;
+    animation: fadeInScale 0.55s ease;
+    text-shadow: 0 0 20px rgba(236, 72, 153, 0.7);
+    white-space: pre-line;
+  }
+  @keyframes fadeInScale {
+    from { opacity: 0; transform: scale(0.92); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  .fx-rain {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, #be185d 0%, #9d174d 40%, #701a75 100%);
+    overflow: hidden;
+  }
+  .fx-rain .rain-item {
+    position: absolute;
+    color: rgba(255,255,255,0.88);
+    font-size: 0.85rem;
+    white-space: nowrap;
+    animation: rainFall linear forwards;
+    text-shadow: 0 0 8px rgba(0,0,0,0.35);
+    pointer-events: none;
+  }
+  @keyframes rainFall {
+    0% { transform: translateY(-40px) rotate(-8deg); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 0.9; }
+    100% { transform: translateY(110vh) rotate(6deg); opacity: 0; }
+  }
+  .fx-heartbeat {
+    position: absolute;
+    inset: 0;
+    background: rgba(12, 4, 20, 0.93);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .fx-heartbeat .fx-msg {
+    color: #fda4af;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    text-align: center;
+    line-height: 1.75;
+    padding: 0 24px;
+    animation: heartbeat 0.7s ease-in-out infinite;
+    white-space: pre-line;
+  }
+  @keyframes heartbeat {
+    0%, 100% { transform: scale(1); opacity: 0.9; }
+    50% { transform: scale(1.05); opacity: 1; text-shadow: 0 0 24px rgba(253,164,175,0.85); }
+  }
+  .watch-layer {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 5;
+    overflow: hidden;
+    border-radius: 12px;
+  }
+  .watch-layer .watch-item {
+    position: absolute;
+    color: rgba(244, 114, 182, 0.26);
+    font-size: 0.68rem;
+    white-space: nowrap;
+    animation: watchDrift 9s linear infinite;
+    user-select: none;
+  }
+  @keyframes watchDrift {
+    0% { transform: translateY(0) translateX(0); opacity: 0; }
+    15% { opacity: 0.5; }
+    85% { opacity: 0.35; }
+    100% { transform: translateY(-130px) translateX(18px); opacity: 0; }
+  }
+  .scene.intense {
+    border-color: rgba(244, 114, 182, 0.55);
+    box-shadow: 0 0 36px rgba(236, 72, 153, 0.4);
+  }
+  .choices-wrap {
+    flex-shrink: 0;
+    margin-top: auto;
+  }
+  .em {
+    color: #f472b6;
+    font-weight: 600;
+  }
+  .em-warn {
+    color: #fda4af;
+    font-weight: 700;
+  }
+  .works-box {
+    background: rgba(236, 72, 153, 0.08);
+    border: 1px solid rgba(236, 72, 153, 0.28);
+    border-radius: 10px;
+    padding: 8px 10px;
+    margin-top: 6px;
+    flex-shrink: 0;
+  }
+  .works-box strong {
+    display: block;
+    color: var(--accent);
+    font-size: 0.82rem;
+    margin-bottom: 6px;
+    text-align: center;
+  }
+  .works-box a {
+    display: block;
+    color: #f9a8d4;
+    font-size: 0.78rem;
+    text-decoration: none;
+    padding: 5px 4px;
+    border-radius: 6px;
+    text-align: center;
+    line-height: 1.35;
+  }
+  .works-box a:hover, .works-box a:active {
+    color: #fff;
+    background: rgba(236, 72, 153, 0.18);
+  }
+  .input-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 300;
+    background: rgba(10, 4, 18, 0.92);
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+  }
+  .input-overlay.show { display: flex; }
+  .input-card {
+    background: #1c0f2e;
+    border: 1px solid rgba(236, 72, 153, 0.45);
+    border-radius: 14px;
+    padding: 18px 16px 14px;
+    max-width: 340px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 0 28px rgba(236, 72, 153, 0.3);
+  }
+  .input-card .tip {
+    color: var(--accent);
+    font-size: 0.95rem;
+    margin-bottom: 14px;
+    line-height: 1.5;
+  }
+  .input-card input[type="text"], .input-card textarea {
+    width: 100%;
+    padding: 11px 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(236, 72, 153, 0.35);
+    background: #12081c;
+    color: var(--text);
+    font-size: 0.95rem;
+    font-family: inherit;
+    outline: none;
+    margin-bottom: 12px;
+    resize: none;
+  }
+  .input-card textarea { min-height: 100px; }
+  .input-card .err {
+    color: var(--warn);
+    font-size: 0.8rem;
+    margin-bottom: 8px;
+    min-height: 1.2em;
+  }
+  .countdown-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 350;
+    background: #000;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .countdown-overlay.show { display: flex; }
+  .countdown-msg {
+    color: #fb7185;
+    font-size: 1.15rem;
+    letter-spacing: 1px;
+    margin-bottom: 28px;
+    text-align: center;
+    padding: 0 20px;
+    text-shadow: 0 0 18px rgba(244, 63, 94, 0.8);
+  }
+  .countdown-num {
+    font-size: 5.5rem;
+    font-weight: 700;
+    color: #fff;
+    text-shadow: 0 0 12px #fff, 0 0 28px #f43f5e, 0 0 48px #f43f5e;
+    animation: cdPulse 1s ease-in-out;
+  }
+  @keyframes cdPulse {
+    0% { transform: scale(0.55); opacity: 0.3; }
+    40% { transform: scale(1.12); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  .video-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 360;
+    background: rgba(10, 4, 18, 0.96);
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 12px;
+  }
+  .video-overlay.show { display: flex; }
+  .video-card {
+    background: #1c0f2e;
+    border: 1px solid rgba(236, 72, 153, 0.45);
+    border-radius: 14px;
+    padding: 12px;
+    max-width: 360px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 0 28px rgba(236, 72, 153, 0.3);
+  }
+  .video-card video {
+    width: 100%;
+    max-height: 45vh;
+    border-radius: 8px;
+    background: #000;
+    display: block;
+  }
+  .video-tip {
+    color: var(--warn);
+    font-size: 0.88rem;
+    margin: 10px 0 8px;
+    letter-spacing: 1px;
+  }
+  .img-popup-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 340;
+    background: rgba(10, 4, 18, 0.96);
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 12px;
+  }
+  .img-popup-overlay.show { display: flex; }
+  .img-popup-card {
+    background: #1c0f2e;
+    border: 1px solid rgba(236, 72, 153, 0.45);
+    border-radius: 14px;
+    padding: 12px;
+    max-width: 360px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 0 28px rgba(236, 72, 153, 0.3);
+  }
+  .img-popup-card img {
+    width: 100%;
+    max-height: 50vh;
+    object-fit: contain;
+    border-radius: 8px;
+    background: #000;
+  }
+  .img-popup-tip {
+    color: var(--warn);
+    font-size: 0.9rem;
+    margin: 10px 0 8px;
+  }
+  html, body, .container, .scene, .scene-body, .narr, .task, .quote, .disclaimer-box, .end, .end-title, .note, .em, .em-warn {
+    -webkit-user-select: text !important;
+    user-select: text !important;
+  }
+  button, .choice, .nav-btn, .pay-btn {
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+/* 与 A 一致：限制普通页面文字选择与长按菜单；输入区域仍可正常编辑 */
+html, body, body * {
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+  -webkit-touch-callout: none !important;
+}
+input, textarea, [contenteditable="true"] {
+  -webkit-user-select: text !important;
+  -moz-user-select: text !important;
+  -ms-user-select: text !important;
+  user-select: text !important;
+}
+
+</style>
+</head>
+<body>
+<div id="boot-layer">
+  <div class="boot-loading">
+    <div class="spinner"></div>
+    <p>小妲正在进入寻亲之旅……</p>
+    <div class="boot-progress"><div class="boot-progress-bar" id="bootBar"></div></div>
+  </div>
+</div>
+
+<div id="intro-layer">
+  <img id="intro-img" src="https://files.catbox.moe/704ftk.png" alt="封面">
+  <div class="intro-text">
+    <span class="intro-title">小妲的贡n寻亲之旅</span>
+    <div class="intro-light-line"></div>
+    <span class="intro-hint">点击屏幕进入</span>
+  </div>
+</div>
+
+<div id="fx-layer"></div>
+
+<div id="main-app">
+<div class="container">
+<div class="progress"><div class="progress-bar" id="bar"></div></div>
+
+<!-- s1 须知 -->
+<div class="scene intense active" id="s1">
+  <div class="scene-body">
+    <div class="disclaimer-box">
+      <strong>须知 · 重要</strong>
+      本内容包含<strong>辱母</strong>元素，尺度极高。<br>
+      仅供年满18岁且明确喜欢此类内容的自愿参与者使用。<br>
+      若不喜欢或无法接受，请立即退出。<br>
+      继续即表示你已年满18岁，并自愿体验全部内容。
+    </div>
+    <div class="works-box">
+      <strong>小妲的其它作品</strong>
+      <a href="https://yindao-liard.vercel.app/" target="_blank" rel="noopener">小妲的贡奴引导训练</a>
+      <a href="https://bc-omega-nine.vercel.app/" target="_blank" rel="noopener">小妲的白痴贡n问卷2.0</a>
+      <a href="https://zul-ruby.vercel.app/" target="_blank" rel="noopener">小妲的上gong小游戏•动画版</a>
+      <a href="https://ten-ten-dusky.vercel.app/" target="_blank" rel="noopener">小妲的十日贡n调教小游戏</a>
+    </div>
+  </div>
+  <div class="choices-wrap">
+    <button class="choice" data-next="s2">喜欢！要继续</button>
+    <button class="choice" data-next="end_exit">不喜欢，离开</button>
+    <div class="nav-row">
+      <button class="nav-btn" disabled>返回</button>
+    </div>
+  </div>
+</div>
+
+<!-- s2 注意事项 -->
+<div class="scene intense" id="s2" data-watch="1">
+  <div class="scene-body">
+    <div class="scene-img qr-scene"><div class="inline-qrs">
+      <div><p>微信</p><img src="https://i.postimg.cc/ht4YLyP8/IMG-20260721-005339.png" alt="微信收款码" loading="eager"></div>
+      <div><p>支付宝</p><img src="https://i.postimg.cc/rFcLYz0y/IMG-20261014-110844.png" alt="支付宝收款码" loading="eager"></div>
+    </div></div>
+    <div class="narr">一些注意事项：</div>
+    <div class="task">1. 游玩过程中边撸边玩，但不能中途射精，直到小妲发出射精指令。
+2. 截图保存好小妲的收款码。过程中会有上贡环节，你可以选择不真的上贡，但需要认真体验。
+3. 游戏是游戏，代入现实是个人问题。请热爱生活。</div>
+  </div>
+  <div class="choices-wrap">
+    <button class="choice" data-next="s3" data-fx="black:那么，开始咯♡">好的！已经全部看完并记住</button>
+    <div class="nav-row">
+      <button class="nav-btn" data-nav-prev>返回</button>
+    </div>
+  </div>
+</div>
+
+<!-- s3 欢迎 -->
+<div class="scene intense" id="s3" data-watch="1">
+  <div class="scene-body">
+    <div class="scene-img"><img src="https://i.postimg.cc/wjBDvvjq/IMG-20261008-163612.png" alt="" loading="eager"></div>
+    <div class="narr">欢迎来到小妲的<span class="em">「贡n寻亲之旅」</span>
+
+见到小妲，知道要先做什么吗？
+白痴🖕
+你只能带着卑微给小妲磕头请安呢～♡</div>
+  </div>
+  <div class="choices-wrap">
+    <button class="choice" data-next="s4" data-fx="heartbeat:磕头请安了吗？傻逼">已经磕头请安了😭</button>
+    <button class="choice" data-next="s4" data-fx="heartbeat:磕头请安了吗？傻逼">呜呜呜给小妲磕头</button>
+    <div class="nav-row">
+      <button class="nav-btn" data-nav-prev>返回</button>
+    </div>
+  </div>
+</div>
+
+<!-- s4 摸生殖器 -->
+<div class="scene intense" id="s4" data-watch="1">
+  <div class="scene-body">
+    <div class="scene-img"><img src="https://i.postimg.cc/jjScpb9j/IMG-20261008-165549.png" alt="" loading="eager"></div>
+    <div class="narr">还是说，你见到小妲做的第一件事，是摸向自己可悲、短小的生殖器了呢？
+
+啧，真猥琐🖕</div>
+  </div>
+  <div class="choices-wrap">
+    <button class="choice" data-next="s5">呜呜呜😭我没有</button>
+    <button class="choice" data-next="s5">😭被小妲猜透了</button>
+    <div class="nav-row">
+      <button class="nav-btn" data-nav-prev>返回</button>
+    </div>
+  </div>
+</div>
+
+<!-- s5 允许边缘 -->
+<div class="scene intense" id="s5" data-watch="1">
+  <div class="scene-body">
+    <div class="narr">不过呢，小妲可是很善良的呢～♡
+可以帮你舒服一下哦～🖤
+不过只能持续到射精之前呢～🖤</div>
+    <div class="task">现在可以开始慢慢撸，但绝对不能射。
+眼睛看着小妲，保持这个状态。</div>
+  </div>
+  <div class="choices-wrap">
+    <button class="choice" data-video-gate data-next="s6">啊啊啊😭好吧</button>
+    <button class="choice" data-video-gate data-next="s6">谢谢小妲🥵</button>
+    <div class="nav-row">
+      <button class="nav-btn" data-nav-prev>返回</button>
+    </div>
+  </div>
+</div>
+
+<!-- s6 寻亲是什么 -->
+<div class="scene intense" id="s6" data-watch="1">
+  <div class="scene-body">
+    <div class="narr">现在，看到「寻亲」两个字
+你想到了什么呢？</div>
+  </div>
+  <div class="choices-wrap">
+    <button class="choice" data-next="s7">想到了真正的亲妈……</button>
+    <button class="choice" data-next="s7">不知道，求小妲告诉我</button>
+    <div class="nav-row">
+      <button class="nav-btn" data-nav-prev>返回</button>
+    </div>
+  </div>
+</div>
+
+<!-- s7 真正的亲妈 -->
+<div class="scene intense" id="s7" data-watch="1">
+  <div class="scene-body">
+    <div class="scene-img"><img src="https://i.postimg.cc/tgrbb94k/IMG-20261008-170648.png" alt="" loading="eager"></div>
+    <div class="narr">「寻亲」
+就是让你知道谁是你真正的「亲妈」！</div>
+  </div>
+  <div class="choices-wrap">
+    <button class="choice" data-next="s8" data-fx="heartbeat:是小妲大人吗？">啊啊啊啊是小妲大人🥵</button>
+    <button class="choice" data-next="s8" data-fx="heartbeat:是小妲大人吗？">小妲就是我的亲妈🥺</button>
+    <div class="nav-row">
+      <button class="nav-btn" data-nav-prev>返回</button>
+    </div>
+  </div>
+</div>
+
+<!-- s8 还不是 -->
+<div class="scene intense" id="s8" data-watch="1">
+  <div class="scene-body">
+    <div class="narr">不过，小妲现在还不是你的「亲妈」哦～♡
+小妲可不承认有你这个傻逼儿子～🖤</div>
+  </div>
+  <div class="choices-wrap">
+    <button class="choice" data-next="s9">🥺🥺🥺呜呜呜</button>
+    <button class="choice" data-next="s9">🥵🥵🥵小妲说的对</button>
+    <div class="nav-row">
+      <button class="nav-btn" data-nav-prev>返回</button>
+    </div>
+  </div>
+</div>
+
+<!-- s9 一个事实 -->
+<div class="scene intense" id="s9" data-watch="2">
+  <div class="scene-body">
+    <div class="narr">不过，小妲知道关于你的一个事实～♡
+
+想知道吗？</div>
+  </div>
+  <div class="choices-wrap">
+    <button class="choice" data-next="s10">想！</button>
+    <div class="nav-row">
+      <button class="nav-btn" data-nav-prev>返回</button>
+    </div>
+  </div>
+</div>
+
+<!-- s10 亲生母亲也是傻逼 -->
+<div class="scene intense" id="s10" data-watch="2">
+  <div class="scene-body">
+    <div class="scene-img"><img src="https://files.catbox.moe/dphc5c.png" alt="" loading="eager"></div>
+    <div class="narr">你的亲生母亲也是个傻逼呢～🖤
+
+不然她怎么会生出你这个小傻逼呢？</div>
+  </div>
+  <div class="choices-wrap">
+    <button class="choice" data-next="s11" data-fx="black:你的亲生母亲是个傻逼">啊啊啊😭是的</button>
+    <button class="choice" data-next="s11" data-fx="black:你的亲生母亲是个傻逼">对！🥵</button>
+    <div class="nav-row">
+      <button class="nav-btn" data-nav-prev>返回</button>
+    </div>
+  </div>
+</div>
+
+<!-- s11 说三遍 -->
+<div class="scene intense" id="s11" data-watch="2">
+  <div class="scene-body">
+    <div class="task">来，开始🦌叭～♡
+
+边🦌边打出来～🖤
+要3遍哦～🖤
+
+「傻逼XXX的亲生母亲是个大傻逼！」
+
+（把XXX换成自己的名字）</div>
+  </div>
+  <div class="choices-wrap">
+    <button class="choice" data-input="insult1" data-next="s12">已经打完三遍了😭</button>
+    <div class="nav-row">
+      <button class="nav-btn" data-nav-prev>返回</button>
+    </div>
+  </div>
+</div>
+
+<!-- s12 恭喜 -->
+<div class="scene intense" id="s12" data-watch="2">
+  <div class="scene-body">
+    <div class="scene-img"><img src="https://i.postimg.cc/mgBNfsq2/IMG-20261008-172648.png" alt="" loading="eager"></div>
+    <div class="narr">恭喜呢～♡
+离你找到真正的「亲妈」更进一步了～🖤</div>
+  </div>
+  <div class="choices-wrap">
+    <button class="choice" data-next="s13">🥵🥵🥵被小妲洗脑了</button>
+    <div class="nav-row">
+      <button class="nav-btn" data-nav-prev>返回</button>
+    </div>
+  </div>
+</div>
+
+<!-- s13 婊子妈 -->
+<div class="scene intense" id="s13" data-watch="2">
+  <div class="scene-body">
+    <div class="narr">为了庆祝一下🥳
+小妲帮你想出了亲生母亲的新名字呢～🖤
+
+<span class="em-warn">「婊子妈」</span></div>
+  </div>
+  <div class="choices-wrap">
+    <button class="choice" data-next="s14" data-fx="heartbeat:婊子妈～">谢谢小妲🥵</button>
+    <button class="choice" data-next="s14" data-fx="heartbeat:婊子妈～">小妲想的好😭</button>
+    <div class="nav-row">
+      <button class="nav-btn" data-nav-prev>返回</button>
+    </div>
+  </div>
+</div>
+
+<!-- s14 确认 -->
+<div class="scene intense" id="s14" data-watch="2">
+  <div class="scene-body">
+    <div class="scene-img"><img src="https://i.postimg.cc/mgBNfsq2/IMG-20261008-172648.png" alt="" loading="eager"></div>
+    <div class="narr">怎么样？
+小妲说的很对叭？</div>
+  </div>
+  <div class="choices-wrap">
+    <button class="choice" data-next="s15">是的呜呜呜</button>
+    <div class="nav-row">
+      <button class="nav-btn" data-nav-prev>返回</button>
+    </div>
+  </div>
+</div>
+
+<!-- s15 说五遍 -->
+<div class="scene intense" id="s15" data-watch="2">
+  <div class="scene-body">
+    <div class="task">那就说出来～🖤
+边撸边说出来～🖤
+要5遍哦～🖤
+
+「傻逼XXX的亲生母亲是个婊子妈！」</div>
+  </div>
+  <div class="choices-wrap">
+    <button class="choice" data-input="insult2" data-next="s16">已经说完五遍了🥵</button>
+    <div class="nav-row">
+      <button class="nav-btn" data-nav-prev>返回</button>
+    </div>
+  </div>
+</div>
+
+<!-- s16 记住了吗 -->
+<div class="scene intense" id="s16" data-watch="2">
+  <div class="scene-body">
+    <div class="scene-img"><img src="https://i.postimg.cc/L40LQPkx/IMG-20261008-175447.png" alt="" loading="eager"></div>
+    <div class="narr">看着小妲～♡
+你记住了吗？</div>
+  </div>
+  <div class="choices-wrap">
+    <button class="choice" data-next="s17">傻逼记住了🥵</button>
+    <div class="nav-row">
+      <button class="nav-btn" data-nav-prev>返回</button>
+    </div>
+  </div>
+</div>
+
+<!-- s17 忍不住了 -->
+<div class="scene intense" id="s17" data-watch="2">
+  <div class="scene-body">
+    <div class="narr">已经忍不住了叭？
+就只是重述了几句事实～♡
+就要射了吗？</div>
+  </div>
+  <div class="choices-wrap">
+    <button class="choice" data-next="s18">求求小妲让傻逼射精🥵</button>
+    <button class="choice" data-next="s18">呜呜呜要忍不住了🥺</button>
+    <div class="nav-row">
+      <button class="nav-btn" data-nav-prev>返回</button>
+    </div>
+  </div>
+</div>
+
+<!-- s18 射在脚上 -->
+<div class="scene intense" id="s18" data-watch="2">
+  <div class="scene-body">
+    <div class="scene-img"><img src="https://i.postimg.cc/bvXKxdFG/IMG-20261008-175926.png" alt="" loading="eager"></div>
+    <div class="narr">是想要像这样射在小妲的脚上是吗？</div>
+  </div>
+  <div class="choices-wrap">
+    <button class="choice" data-next="s19" data-fx="black:你只能看着小妲的脚寸止到死！">是的！！！</button>
+    <div class="nav-row">
+      <button class="nav-btn" data-nav-prev>返回</button>
+    </div>
+  </div>
+</div>
+
+<!-- s19 禁止 -->
+<div class="scene intense" id="s19" data-watch="2">
+  <div class="scene-body">
+    <div class="narr">不可以呢～♡
+你可是一只傻🐶～🖤
+怎么能亵渎小妲呢？
+现在也不能撸，停！</div>
+  </div>
+  <div class="choices-wrap">
+    <button class="choice" data-next="s20">啊啊啊，不要，求求小妲</button>
+    <button class="choice" data-next="s20">是的🥺🥺🥺</button>
+    <div class="nav-row">
+      <button class="nav-btn" data-nav-prev>返回</button>
+    </div>
+  </div>
+</div>
+
+<!-- s20-22 三连确认 -->
+<div class="scene intense" id="s20" data-watch="3">
+  <div class="scene-body">
+    <div class="scene-img"><img src="https://i.postimg.cc/XYXsr3j4/141835772-p0-master1200.webp" alt="" loading="eager"></div>
+    <div class="narr">你只不过是个被亲生母亲遗传了傻逼属性的傻逼🐢男！</div>
+  </div>
+  <div class="choices-wrap">
+    <button class="choice" data-next="s21">我是！！！</button>
+    <div class="nav-row">
+      <button class="nav-btn" data-nav-prev>返回</button>
+    </div>
+  </div>
+</div>
+
+<div class="scene intense" id="s21" data-watch="3">
+  <div class="scene-body">
+    <div class="scene-img"><img src="https://i.postimg.cc/XYXsr3j4/141835772-p0-master1200.webp" alt="" loading="eager"></div>
+    <div class="narr">是一个看着亲生母亲被羞辱、辱骂会兴奋的烂🐶！</div>
+  </div>
+  <div class="choices-wrap">
+    <button class="choice" data-next="s22">我是！！！</button>
+    <div class="nav-row">
+      <button class="nav-btn" data-nav-prev>返回</button>
+    </div>
+  </div>
+</div>
+
+<div class="scene intense" id="s22" data-watch="3">
+  <div class="scene-body">
+    <div class="scene-img"><img src="https://i.postimg.cc/XYXsr3j4/141835772-p0-master1200.webp" alt="" loading="eager"></div>
+    <div class="narr">是一辈子就只能靠🐶🧠意淫的垃圾！</div>
+  </div>
+  <div class="choices-wrap">
+    <button class="choice" data-next="s23">是的！！！</button>
+    <div class="nav-row">
+      <button class="nav-btn" data-nav-prev>返回</button>
+    </div>
+  </div>
+</div>
+
+<!-- s23 越说越硬 -->
+<div class="scene intense" id="s23" data-watch="3">
+  <div class="scene-body">
+    <div class="scene-img"><img src="https://files.catbox.moe/5ak4r9.webp" alt="" loading="eager"></div>
+    <div class="narr">什么嘛，越说越硬了～♡
+真低贱～🖤
+而且还不能撸，已经要憋死了叭～🖤</div>
+  </div>
+  <div class="choices-wrap">
+    <button class="choice" data-next="s24">啊啊啊，小妲越说越想🦌</button>
+    <div class="nav-row">
+      <button class="nav-btn" data-nav-prev>返回</button>
+    </div>
+  </div>
+</div>
+
+<!-- s24 没有亲妈不行 -->
+<div class="scene intense" id="s24" data-watch="3">
+  <div class="scene-body">
+    <div class="narr">不过呢～♡
+没有「亲妈」是不行的呢～🖤
+虽然亲生母亲不是你的「亲妈」～🖤
+但小妲知道什么能当你的「亲妈」～🖤</div>
+  </div>
+  <div class="choices-wrap">
+    <button class="choice" data-next="s25">求小妲告诉傻逼🥵</button>
+    <button class="choice" data-next="s25">😭小妲告诉白痴叭</button>
+    <div class="nav-row">
+      <button class="nav-btn" data-nav-prev>返回</button>
+    </div>
+  </div>
+</div>
+
+<!-- s25 开始撸 -->
+<div class="scene intense" id="s25" data-watch="3">
+  <div class="scene-body">
+    <div class="narr">开始🦌叭～♡
+小妲马上告诉你～♡</div>
+  </div>
+  <div class="choices-wrap">
+    <button class="choice" data-next="s26">谢谢小妲！</button>
+    <div class="nav-row">
+      <button class="nav-btn" data-nav-prev>返回</button>
+    </div>
+  </div>
+</div>
+
+<!-- s26 白袜是亲妈 -->
+<div class="scene intense" id="s26" data-watch="3">
+  <div class="scene-body">
+    <div class="scene-img"><img src="https://i.postimg.cc/7hZxFX7w/ju-bu-qing-xi-xiao-guo-3.png" alt="" loading="eager"></div>
+    <div class="narr">小妲的<span class="em">白袜</span>就可以当你的「亲妈」！</div>
+  </div>
+  <div class="choices-wrap">
+    <button class="choice" data-next="s27" data-fx="heartbeat:白袜亲妈～">啊啊啊是的！🥵🥵🥵</button>
+    <div class="nav-row">
+      <button class="nav-btn" data-nav-prev>返回</button>
+    </div>
+  </div>
+</div>
+
+<!-- s27 只有白袜 -->
+<div class="scene intense" id="s27" data-watch="3">
+  <div class="scene-body">
+    <div class="scene-img"><img src="https://i.postimg.cc/7hZxFX7w/ju-bu-qing-xi-xiao-guo-3.png" alt="" loading="eager"></div>
+    <div class="narr">也只有小妲的白袜能当你的亲妈呢～♡
+
+毕竟只需要把它放在这里～♡
+你就会忍不住看过去～🖤
+忍不住射在小妲的白袜上～🖤</div>
+  </div>
+  <div class="choices-wrap">
+    <button class="choice" data-next="s28">小妲太懂我了🥺</button>
+    <div class="nav-row">
+      <button class="nav-btn" data-nav-prev>返回</button>
+    </div>
+  </div>
+</div>
+
+<!-- s28 先交认妈费 -->
+<div class="scene intense" id="s28" data-watch="3">
+  <div class="scene-body">
+    <div class="scene-img"><img src="https://i.postimg.cc/7hZxFX7w/ju-bu-qing-xi-xiao-guo-3.png" alt="" loading="eager"></div>
+    <div class="narr">打住！
+小妲可没说同意哦～♡
+得先交上<span class="em-warn">认妈费</span>呢～🖤</div>
+  </div>
+  <div class="choices-wrap">
+    <button class="choice" data-next="s29">好！🥵</button>
+    <button class="choice" data-next="s29">傻逼马上交！</button>
+    <div class="nav-row">
+      <button class="nav-btn" data-nav-prev>返回</button>
+    </div>
+  </div>
+</div>
+
+<!-- s29 保存收款码 -->
+<div class="scene intense" id="s29" data-watch="3">
+  <div class="scene-body">
+    <div class="scene-img qr-scene"><div class="inline-qrs">
+      <div><p>微信</p><img src="https://i.postimg.cc/ht4YLyP8/IMG-20260721-005339.png" alt="微信收款码" loading="eager"></div>
+      <div><p>支付宝</p><img src="https://i.postimg.cc/rFcLYz0y/IMG-20261014-110844.png" alt="支付宝收款码" loading="eager"></div>
+    </div></div>
+    <div class="narr">别急～♡
+小妲来教你～🖤
+毕竟是特别正式的事情呢～🖤
+跟着小妲～🖤
+先保存好小妲的收款码～🖤</div>
+  </div>
+  <div class="choices-wrap">
+    <button class="choice" data-next="s30">是！已经保存</button>
+    <div class="nav-row">
+      <button class="nav-btn" data-nav-prev>返回</button>
+    </div>
+  </div>
+</div>
+
+<!-- s30 选择金额 认妈费 -->
+<div class="scene intense" id="s30" data-watch="3">
+  <div class="scene-body">
+    <div class="scene-img"><img src="https://i.postimg.cc/7hZxFX7w/ju-bu-qing-xi-xiao-guo-3.png" alt="" loading="eager"></div>
+    <div class="narr">慢慢🦌哦～🖤
+放慢速度～🖤
+打开二维码～🖤
+自己选择一个数字叭～🖤
+小妲可不会为难你呢～🖤</div>
+    <div class="amount-grid">
+      <button class="choice" data-amount="88.88" data-next="s31">88.88元</button>
+      <button class="choice" data-amount="66.66" data-next="s31">66.66元</button>
+      <button class="choice" data-amount="48.88" data-next="s31">48.88元</button>
+      <button class="choice" data-amount="28.88" data-next="s31">28.88元</button>
+    </div>
+    <button class="choice" data-amount="other" data-next="s31">其他金额</button>
+  </div>
+  <div class="choices-wrap">
+    <div class="nav-row">
+      <button class="nav-btn" data-nav-prev>返回</button>
+    </div>
+  </div>
+</div>
+
+<!-- s31 备注认妈费 -->
+<div class="scene intense" id="s31" data-watch="3">
+  <div class="scene-body">
+    <div class="scene-img"><img src="https://i.postimg.cc/7hZxFX7w/ju-bu-qing-xi-xiao-guo-3.png" alt="" loading="eager"></div>
+    <div class="narr">输入备注～🖤</div>
+    <div class="quote">「这是傻逼给白袜亲妈的认妈费」</div>
+  </div>
+  <div class="choices-wrap">
+    <button class="choice" data-next="s32">输好了！</button>
+    <div class="nav-row">
+      <button class="nav-btn" data-nav-prev>返回</button>
+    </div>
+  </div>
+</div>
+
+<!-- s32 输入密码认妈 -->
+<div class="scene intense" id="s32" data-watch="3">
+  <div class="scene-body">
+    <div class="scene-img"><img src="https://i.postimg.cc/7hZxFX7w/ju-bu-qing-xi-xiao-guo-3.png" alt="" loading="eager"></div>
+    <div class="task">输入密码～🖤
+一位一位来～🖤
+边输入边说出来～🖤
+
+「小妲的白袜是傻逼的“亲妈”！」</div>
+  </div>
+  <div class="choices-wrap">
+    <button class="choice" data-next="s33" data-fx="rain:认妈成功|白袜亲妈|傻逼有妈了|上贡认妈">😭😭😭已经上交认妈费</button>
+    <button class="choice" data-next="s33" data-fx="rain:认妈成功|白袜亲妈|傻逼有妈了|上贡认妈">交了！🥵🥵🥵</button>
+    <div class="nav-row">
+      <button class="nav-btn" data-nav-prev>返回</button>
+    </div>
+  </div>
+</div>
+
+<!-- s33 还要孝敬 -->
+<div class="scene intense" id="s33" data-watch="3">
+  <div class="scene-body">
+    <div class="scene-img"><img src="https://i.postimg.cc/7hZxFX7w/ju-bu-qing-xi-xiao-guo-3.png" alt="" loading="eager"></div>
+    <div class="narr">现在还不射呢～🖤
+只有认妈费可是不够呢～🖤
+还得要孝敬孝敬「亲妈」叭～🖤
+比认妈费高一点点就可以了～🖤</div>
+  </div>
+  <div class="choices-wrap">
+    <button class="choice" data-next="s34">呜呜呜😭好</button>
+    <button class="choice" data-next="s34">🥵得孝敬！</button>
+    <div class="nav-row">
+      <button class="nav-btn" data-nav-prev>返回</button>
+    </div>
+  </div>
+</div>
+
+<!-- s34 孝敬费备注 -->
+<div class="scene intense" id="s34" data-watch="3">
+  <div class="scene-body">
+    <div class="scene-img"><img src="https://i.postimg.cc/7hZxFX7w/ju-bu-qing-xi-xiao-guo-3.png" alt="" loading="eager"></div>
+    <div class="narr">来叭～🖤
+已经教过你一次了～🖤
+备注就写：</div>
+    <div class="quote">「这是傻逼给白袜亲妈的孝敬费」</div>
+    <div class="amount-grid">
+      <button class="choice" data-amount="100" data-next="s35">100元+</button>
+      <button class="choice" data-amount="88.88" data-next="s35">88.88元</button>
+      <button class="choice" data-amount="66.66" data-next="s35">66.66元</button>
+      <button class="choice" data-amount="50" data-next="s35">50元</button>
+    </div>
+  </div>
+  <div class="choices-wrap">
+    <div class="nav-row">
+      <button class="nav-btn" data-nav-prev>返回</button>
+    </div>
+  </div>
+</div>
+
+<!-- s35 孝敬密码 -->
+<div class="scene intense" id="s35" data-watch="3">
+  <div class="scene-body">
+    <div class="scene-img"><img src="https://i.postimg.cc/7hZxFX7w/ju-bu-qing-xi-xiao-guo-3.png" alt="" loading="eager"></div>
+    <div class="task">还不能射哦～🖤
+边输入边说出～🖤
+
+「孝敬小妲的白袜一辈子！」</div>
+  </div>
+  <div class="choices-wrap">
+    <button class="choice" data-next="s36" data-fx="rain:孝敬成功|白袜亲妈|一辈子孝敬|傻逼孝子">输完，差点要爽射了😭😭😭</button>
+    <button class="choice" data-next="s36" data-fx="rain:孝敬成功|白袜亲妈|一辈子孝敬|傻逼孝子">要忍不住了！！！🥵</button>
+    <div class="nav-row">
+      <button class="nav-btn" data-nav-prev>返回</button>
+    </div>
+  </div>
+</div>
+
+<!-- s36 祖宗孝敬 -->
+<div class="scene intense" id="s36" data-watch="3">
+  <div class="scene-body">
+    <div class="scene-img"><img src="https://i.postimg.cc/7hZxFX7w/ju-bu-qing-xi-xiao-guo-3.png" alt="" loading="eager"></div>
+    <div class="narr">还有最后一次～🖤
+给小妲<span class="em-warn">祖宗</span>的孝敬费还没有呢～🖤</div>
+  </div>
+  <div class="choices-wrap">
+    <button class="choice" data-next="s37">啊啊啊傻逼该死！差点忘了</button>
+    <div class="nav-row">
+      <button class="nav-btn" data-nav-prev>返回</button>
+    </div>
+  </div>
+</div>
+
+<!-- s37 祖宗金额 -->
+<div class="scene intense" id="s37" data-watch="3">
+  <div class="scene-body">
+    <div class="scene-img"><img src="https://i.postimg.cc/7hZxFX7w/ju-bu-qing-xi-xiao-guo-3.png" alt="" loading="eager"></div>
+    <div class="narr">来，扫码～🖤
+选择最心疼的数字～🖤
+毕竟小妲可是你的祖宗呢～🖤</div>
+    <div class="amount-grid">
+      <button class="choice" data-amount="200" data-next="s38">200元+</button>
+      <button class="choice" data-amount="150" data-next="s38">150元</button>
+      <button class="choice" data-amount="100" data-next="s38">100元</button>
+      <button class="choice" data-amount="88.88" data-next="s38">88.88元</button>
+    </div>
+    <button class="choice" data-amount="final" data-next="s38">其他（请选会肉疼的）</button>
+  </div>
+  <div class="choices-wrap">
+    <div class="nav-row">
+      <button class="nav-btn" data-nav-prev>返回</button>
+    </div>
+  </div>
+</div>
+
+<!-- s38 祖宗备注 -->
+<div class="scene intense" id="s38" data-watch="3">
+  <div class="scene-body">
+    <div class="scene-img"><img src="https://i.postimg.cc/7hZxFX7w/ju-bu-qing-xi-xiao-guo-3.png" alt="" loading="eager"></div>
+    <div class="narr">输入备注～🖤</div>
+    <div class="quote">「这是傻逼给小妲祖宗的孝敬费」</div>
+    <div class="narr">要最后输入一次密码咯～🖤
+马上就可以射咯～🖤</div>
+  </div>
+  <div class="choices-wrap">
+    <button class="choice" data-next="s39">好！！！</button>
+    <div class="nav-row">
+      <button class="nav-btn" data-nav-prev>返回</button>
+    </div>
+  </div>
+</div>
+
+<!-- s39 最后密码+倒计时准备 -->
+<div class="scene intense" id="s39" data-watch="3">
+  <div class="scene-body">
+    <div class="scene-img"><img src="https://i.postimg.cc/7hZxFX7w/ju-bu-qing-xi-xiao-guo-3.png" alt="" loading="eager"></div>
+    <div class="task">加速🦌～🖤
+逼到极限～🖤
+再边输入密码边说出～🖤
+
+「傻逼孙子给小妲祖宗磕头上贡」
+
+然后回到这里哦～🖤
+祖宗给你准备了倒计时了呢～🖤</div>
+  </div>
+  <div class="choices-wrap">
+    <button class="choice" data-s39-special data-next="s40">好了！！！准备射</button>
+    <div class="nav-row">
+      <button class="nav-btn" data-nav-prev>返回</button>
+    </div>
+  </div>
+</div>
+
+<!-- s40 射完 -->
+<div class="scene intense" id="s40" data-watch="3">
+  <div class="scene-body">
+    <div class="scene-img"><img src="https://i.postimg.cc/7hZxFX7w/ju-bu-qing-xi-xiao-guo-3.png" alt="" loading="eager"></div>
+    <div class="narr">哎呀，不会射到屏幕上了叭？
+真恶心呢～</div>
+  </div>
+  <div class="choices-wrap">
+    <button class="choice" data-next="s41">呜呜呜是的</button>
+    <button class="choice" data-next="s41">没有呢🥵</button>
+    <div class="nav-row">
+      <button class="nav-btn" data-nav-prev>返回</button>
+    </div>
+  </div>
+</div>
+
+<!-- s41 结束 -->
+<div class="scene intense" id="s41" data-watch="3">
+  <div class="scene-body">
+    <div class="scene-img"><img src="https://i.postimg.cc/7hZxFX7w/ju-bu-qing-xi-xiao-guo-3.png" alt="" loading="eager"></div>
+    <div class="narr">不管有没有～🖤
+这次的「寻亲」之旅结束咯～🖤</div>
+  </div>
+  <div class="choices-wrap">
+    <button class="choice" data-next="s42">谢谢小妲祖宗！</button>
+    <div class="nav-row">
+      <button class="nav-btn" data-nav-prev>返回</button>
+    </div>
+  </div>
+</div>
+
+<!-- s42 最终确认 -->
+<div class="scene intense" id="s42" data-watch="3">
+  <div class="scene-body">
+    <div class="scene-img"><img src="https://i.postimg.cc/7hZxFX7w/ju-bu-qing-xi-xiao-guo-3.png" alt="" loading="eager"></div>
+    <div class="narr">傻逼之后的「亲妈」就是小妲的白袜了呢～🖤
+要好好孝敬它一辈子哦～🖤
+傻逼🖕</div>
+  </div>
+  <div class="choices-wrap">
+    <button class="choice" data-next="s43">还要孝敬小妲祖宗！</button>
+    <button class="choice" data-next="s43">傻逼记住了🥵🥵🥵</button>
+    <div class="nav-row">
+      <button class="nav-btn" data-nav-prev>返回</button>
+    </div>
+  </div>
+</div>
+
+<!-- s43 关注 -->
+<div class="scene intense" id="s43">
+  <div class="scene-body">
+    <div class="end">
+      <div class="end-title">寻亲之旅完成</div>
+      傻逼已经找到真正的亲妈和祖宗了呢～🖤<br>
+      如果喜欢小妲的作品，请关注小妲！
+    </div>
+  </div>
+  <div class="choices-wrap">
+    <button class="choice" data-next="s44">还没有关注😳</button>
+    <button class="choice" data-next="s44">早就关注了！</button>
+    <div class="nav-row">
+      <button class="nav-btn" data-nav-prev>返回</button>
+    </div>
+  </div>
+</div>
+
+<!-- s44 结束页 -->
+<div class="scene intense" id="s44">
+  <div class="scene-body">
+    <div class="end">
+      <div class="end-title">拜拜啦～♡</div>
+      请客官下次也来游玩小妲的作品哦～♡<br>
+      如果还想要再玩一遍也是可以的呢～♡
+    </div>
+    <div class="works-box">
+      <strong>小妲的其它作品</strong>
+      <a href="https://yindao-liard.vercel.app/" target="_blank" rel="noopener">小妲的贡奴引导训练</a>
+      <a href="https://bc-omega-nine.vercel.app/" target="_blank" rel="noopener">小妲的白痴贡n问卷2.0</a>
+      <a href="https://zul-ruby.vercel.app/" target="_blank" rel="noopener">小妲的上gong小游戏•动画版</a>
+      <a href="https://ten-ten-dusky.vercel.app/" target="_blank" rel="noopener">小妲的十日贡n调教小游戏</a>
+      <a href="https://xd21.vercel.app/" target="_blank" rel="noopener">小妲的上gong小游戏2.2</a>
+    </div>
+    <div class="inline-qrs" style="margin-top:10px;">
+      <div><p>微信</p><img src="https://i.postimg.cc/ht4YLyP8/IMG-20260721-005339.png" alt="微信"></div>
+      <div><p>支付宝</p><img src="https://i.postimg.cc/rFcLYz0y/IMG-20261014-110844.png" alt="支付宝收款码" loading="eager"></div>
+    </div>
+  </div>
+  <div class="choices-wrap">
+    <button class="choice" onclick="location.reload()">再玩一次叭😊</button>
+    <div class="nav-row">
+      <button class="nav-btn" data-nav-prev>返回</button>
+    </div>
+  </div>
+</div>
+
+<!-- 退出 -->
+<div class="scene intense" id="end_exit">
+  <div class="end">
+    <div class="end-title">♡</div>
+    那就请离开吧。<br><br>
+    问卷结束了。
+  </div>
+</div>
+
+</div>
+</div>
+
+<!-- 支付弹窗 -->
+<div class="pay-overlay" id="payOverlay">
+  <div class="pay-card">
+    <h3>扫码上贡</h3>
+    <p class="tip" id="payTip">上贡越多越好哦～🖤</p>
+    <div class="inline-qrs" style="margin-bottom:8px;">
+      <div><p>微信</p><img src="https://i.postimg.cc/ht4YLyP8/IMG-20260721-005339.png" alt="微信"></div>
+      <div><p>支付宝</p><img src="https://i.postimg.cc/rFcLYz0y/IMG-20261014-110844.png" alt="支付宝收款码" loading="eager"></div>
+    </div>
+    <button type="button" class="pay-btn" id="btnPaid">已上贡 / 继续</button>
+  </div>
+</div>
+
+<!-- 输入弹窗 -->
+<div class="input-overlay" id="inputOverlay">
+  <div class="input-card">
+    <p class="tip" id="inputTip">请输入</p>
+    <div class="err" id="inputErr"></div>
+    <textarea id="inputField" placeholder="在这里输入……"></textarea>
+    <button type="button" class="pay-btn" id="btnInputOk">确认</button>
+  </div>
+</div>
+
+<!-- 倒计时 -->
+<div class="countdown-overlay" id="countdownOverlay">
+  <img id="countdownImg" src="https://i.postimg.cc/7hZxFX7w/ju-bu-qing-xi-xiao-guo-3.png" alt="" style="max-width:280px;max-height:40vh;object-fit:contain;border-radius:10px;margin-bottom:16px;border:2px solid rgba(244,114,182,0.5);">
+  <div class="countdown-msg" id="countdownMsg">祖宗给你10秒～🖤</div>
+  <div class="countdown-num" id="countdownNum">10</div>
+</div>
+
+<!-- 视频弹窗（s5） -->
+<div class="video-overlay" id="videoOverlay">
+  <div class="video-card">
+    <video id="edgeVideo" src="https://files.catbox.moe/tnk8jm.mp4" loop playsinline webkit-playsinline muted></video>
+    <p class="video-tip">快要射精就得停哦～然后点击继续</p>
+    <button type="button" class="pay-btn" id="btnEdgeDone">继续</button>
+  </div>
+</div>
+
+<!-- 图片弹窗（s39用） -->
+<div class="img-popup-overlay" id="imgPopupOverlay">
+  <div class="img-popup-card">
+    <img id="imgPopupImg" src="https://i.postimg.cc/7hZxFX7w/ju-bu-qing-xi-xiao-guo-3.png" alt="">
+    <p class="img-popup-tip">看着它……准备好了吗？</p>
+    <button type="button" class="pay-btn" id="btnImgPopupOk">开始倒计时</button>
+  </div>
+</div>
+
+<audio id="bgm" src="https://files.catbox.moe/5plhe0.mp3" loop preload="auto"></audio>
+
+<script>
+  const order = [
+    's1','s2','s3','s4','s5','s6','s7','s8','s9','s10',
+    's11','s12','s13','s14','s15','s16','s17','s18','s19','s20',
+    's21','s22','s23','s24','s25','s26','s27','s28','s29','s30',
+    's31','s32','s33','s34','s35','s36','s37','s38','s39','s40',
+    's41','s42','s43','s44','end_exit'
+  ];
+  let pendingGo = null;
+  let selectedAmount = null;
+  let historyStack = ['s1'];
+  const answers = [];
+  const WATCH_TEXTS = {
+    1: ['傻逼贡🐶', '寻亲中', '磕头请安', '禁止射精', '白痴ATM'],
+    2: ['婊子妈', '亲生母亲是傻逼', '边撸边说', '低贱', '烂🐶'],
+    3: ['白袜亲妈', '认妈费', '孝敬祖宗', '傻逼孙子', '上贡磕头', '射精开关']
+  };
+
+  function recordAnswer(q, a) {
+    answers.push({ q, a, time: new Date().toLocaleString('zh-CN') });
+  }
+  function getCurrentId() {
+    const el = document.querySelector('.scene.active');
+    return el ? el.id : null;
+  }
+
+  function playFx(type, msg, duration) {
+    return new Promise((resolve) => {
+      const layer = document.getElementById('fx-layer');
+      if (!layer) { resolve(); return; }
+      layer.innerHTML = '';
+      layer.classList.add('show');
+      if (type === 'black') {
+        const div = document.createElement('div');
+        div.className = 'fx-black';
+        div.innerHTML = '<div class="fx-msg">' + (msg || '……') + '</div>';
+        layer.appendChild(div);
+        setTimeout(() => { layer.classList.remove('show'); layer.innerHTML = ''; resolve(); }, duration || 2400);
+      } else if (type === 'heartbeat') {
+        const div = document.createElement('div');
+        div.className = 'fx-heartbeat';
+        div.innerHTML = '<div class="fx-msg">' + (msg || '……') + '</div>';
+        layer.appendChild(div);
+        setTimeout(() => { layer.classList.remove('show'); layer.innerHTML = ''; resolve(); }, duration || 2800);
+      } else if (type === 'rain') {
+        const rain = document.createElement('div');
+        rain.className = 'fx-rain';
+        layer.appendChild(rain);
+        const defaultWords = ['上贡成功🖤','白袜亲妈','认妈了','孝敬祖宗','傻逼孙子','磕头上贡','真乖','真好用'];
+        const words = (msg && String(msg).trim())
+          ? String(msg).split('|').map(s => s.trim()).filter(Boolean)
+          : defaultWords;
+        for (let i = 0; i < 48; i++) {
+          const item = document.createElement('div');
+          item.className = 'rain-item';
+          item.textContent = words[Math.floor(Math.random() * words.length)];
+          item.style.left = (Math.random() * 100) + '%';
+          item.style.top = (-Math.random() * 30) + 'px';
+          item.style.animationDuration = (2.2 + Math.random() * 2.8) + 's';
+          item.style.animationDelay = (Math.random() * 1.2) + 's';
+          item.style.fontSize = (0.7 + Math.random() * 0.45) + 'rem';
+          item.style.opacity = 0.55 + Math.random() * 0.4;
+          rain.appendChild(item);
+        }
+        setTimeout(() => { layer.classList.remove('show'); layer.innerHTML = ''; resolve(); }, duration || 3800);
+      } else {
+        layer.classList.remove('show');
+        resolve();
+      }
+    });
+  }
+
+  function clearWatch(scene) {
+    const old = scene.querySelector('.watch-layer');
+    if (old) old.remove();
+  }
+  function spawnWatch(scene, level) {
+    clearWatch(scene);
+    const layer = document.createElement('div');
+    layer.className = 'watch-layer';
+    const pool = WATCH_TEXTS[level] || WATCH_TEXTS[1];
+    const count = level === 1 ? 6 : (level === 2 ? 12 : 18);
+    for (let i = 0; i < count; i++) {
+      const item = document.createElement('span');
+      item.className = 'watch-item';
+      item.textContent = pool[Math.floor(Math.random() * pool.length)];
+      item.style.left = (Math.random() * 88) + '%';
+      item.style.top = (Math.random() * 90) + '%';
+      item.style.animationDelay = (Math.random() * 6) + 's';
+      item.style.animationDuration = (7 + Math.random() * 5) + 's';
+      item.style.fontSize = (0.65 + Math.random() * 0.25) + 'rem';
+      layer.appendChild(item);
+    }
+    scene.appendChild(layer);
+  }
+  function applySceneAtmosphere(id) {
+    const scene = document.getElementById(id);
+    if (!scene) return;
+    const watch = scene.getAttribute('data-watch');
+    if (watch) spawnWatch(scene, parseInt(watch, 10));
+    else clearWatch(scene);
+  }
+
+  function goDirect(id) {
+    document.querySelectorAll('.scene').forEach(el => el.classList.remove('active'));
+    const t = document.getElementById(id);
+    if (t) {
+      t.classList.add('active');
+      const idx = order.indexOf(id);
+      const pct = idx >= 0 ? Math.min(100, (idx / (order.length - 2)) * 100) : 100;
+      document.getElementById('bar').style.width = pct + '%';
+      applySceneAtmosphere(id);
+      const prevBtn = t.querySelector('[data-nav-prev]');
+      if (prevBtn) prevBtn.disabled = historyStack.length <= 1;
+    }
+  }
+
+  async function go(id) {
+    const cur = getCurrentId();
+    if (cur && cur !== id) {
+      if (historyStack[historyStack.length - 1] !== id) historyStack.push(id);
+    }
+    goDirect(id);
+  }
+
+  function goPrev() {
+    if (historyStack.length <= 1) return;
+    historyStack.pop();
+    goDirect(historyStack[historyStack.length - 1]);
+  }
+
+  // 输入弹窗
+  let pendingInputNext = null;
+  let pendingInputBtn = null;
+  function openInput(type, nextId, btn) {
+    pendingInputNext = nextId;
+    pendingInputBtn = btn;
+    const ov = document.getElementById('inputOverlay');
+    const tip = document.getElementById('inputTip');
+    const field = document.getElementById('inputField');
+    const err = document.getElementById('inputErr');
+    err.textContent = '';
+    field.value = '';
+    if (type === 'insult1') {
+      tip.textContent = '边撸边打出三遍：\n「傻逼XXX的亲生母亲是个大傻逼！」';
+      field.placeholder = '把XXX换成自己的名字，打三遍……';
+    } else if (type === 'insult2') {
+      tip.textContent = '边撸边打出五遍：\n「傻逼XXX的亲生母亲是个婊子妈！」';
+      field.placeholder = '把XXX换成自己的名字，打五遍……';
+    }
+    ov.classList.add('show');
+    setTimeout(() => field.focus(), 120);
+  }
+
+  document.getElementById('btnInputOk').addEventListener('click', function() {
+    const field = document.getElementById('inputField');
+    const err = document.getElementById('inputErr');
+    const val = (field.value || '').trim();
+    if (!val || val.length < 8) {
+      err.textContent = '请认真打出来哦～';
+      return;
+    }
+    err.textContent = '';
+    document.getElementById('inputOverlay').classList.remove('show');
+    if (pendingInputBtn && !pendingInputBtn.dataset.recorded) {
+      recordAnswer(getCurrentId(), val.slice(0, 40));
+      pendingInputBtn.dataset.recorded = '1';
+    }
+    const next = pendingInputNext;
+    pendingInputNext = null;
+    pendingInputBtn = null;
+    if (next) go(next);
+  });
+
+  // 倒计时
+  function runCountdown(sec, nextId, btn) {
+    const ov = document.getElementById('countdownOverlay');
+    const num = document.getElementById('countdownNum');
+    const msg = document.getElementById('countdownMsg');
+    msg.textContent = '祖宗给你' + sec + '秒～🖤\n可以射了';
+    msg.style.display = 'block';
+    num.style.display = 'none';
+    ov.classList.add('show');
+
+    setTimeout(function() {
+      msg.style.display = 'none';
+      num.style.display = 'block';
+      let n = sec;
+      num.textContent = String(n);
+      num.style.animation = 'none';
+      void num.offsetWidth;
+      num.style.animation = 'cdPulse 1s ease-in-out';
+
+      const timer = setInterval(function() {
+        n -= 1;
+        if (n <= 0) {
+          clearInterval(timer);
+          num.textContent = '0';
+          setTimeout(function() {
+            num.style.display = 'none';
+            msg.textContent = '射叭～🖤';
+            msg.style.display = 'block';
+            msg.style.fontSize = '1.6rem';
+            setTimeout(function() {
+              ov.classList.remove('show');
+              msg.style.fontSize = '';
+              if (btn && !btn.dataset.recorded) {
+                recordAnswer(getCurrentId(), '倒计时射精');
+                btn.dataset.recorded = '1';
+              }
+              if (nextId) go(nextId);
+            }, 1800);
+          }, 600);
+          return;
+        }
+        num.textContent = String(n);
+        num.style.animation = 'none';
+        void num.offsetWidth;
+        num.style.animation = 'cdPulse 1s ease-in-out';
+      }, 1000);
+    }, 1400);
+  }
+
+  function preloadAll() {
+    // 保留“全部图片加载完成后进入封面”的流程；只优化重复请求和失败重试。
+    // 不等待音频/视频，避免大媒体文件拖慢图片加载进度。
+    const imageUrls = [
+      'https://files.catbox.moe/704ftk.png',
+      'https://i.postimg.cc/ht4YLyP8/IMG-20260721-005339.png',
+      'https://i.postimg.cc/rFcLYz0y/IMG-20261014-110844.png',
+      'https://i.postimg.cc/wjBDvvjq/IMG-20261008-163612.png',
+      'https://i.postimg.cc/jjScpb9j/IMG-20261008-165549.png',
+      'https://i.postimg.cc/tgrbb94k/IMG-20261008-170648.png',
+      'https://files.catbox.moe/dphc5c.png',
+      'https://i.postimg.cc/mgBNfsq2/IMG-20261008-172648.png',
+      'https://i.postimg.cc/L40LQPkx/IMG-20261008-175447.png',
+      'https://i.postimg.cc/bvXKxdFG/IMG-20261008-175926.png',
+      'https://i.postimg.cc/XYXsr3j4/141835772-p0-master1200.webp',
+      'https://files.catbox.moe/5ak4r9.webp',
+      'https://i.postimg.cc/7hZxFX7w/ju-bu-qing-xi-xiao-guo-3.png'
+    ];
+    const bar = document.getElementById('bootBar');
+    const uniqueUrls = Array.from(new Set(imageUrls));
+    const total = uniqueUrls.length;
+    let completed = 0;
+    const doneUrls = new Set();
+
+    function updateProgress(url, ok) {
+      if (doneUrls.has(url)) return;
+      doneUrls.add(url);
+      completed++;
+      if (bar) bar.style.width = Math.round(completed / total * 100) + '%';
+      if (!ok) console.warn('图片加载失败，已重试：', url);
+      if (completed >= total) {
+        if (bar) bar.style.width = '100%';
+      }
+    }
+
+    function loadOne(url) {
+      return new Promise(function(resolve) {
+        // 优先复用页面已有的图片元素，避免对同一张图再发起一次请求。
+        const existing = Array.from(document.images).find(function(img) {
+          return img.currentSrc === url || img.src === url;
+        });
+        let attempts = 0;
+        let settled = false;
+        let retryTimer = null;
+        let activeImg = existing || new Image();
+
+        function finish(ok) {
+          if (settled) return;
+          settled = true;
+          clearTimeout(retryTimer);
+          activeImg.removeEventListener('load', onLoad);
+          activeImg.removeEventListener('error', onError);
+          updateProgress(url, ok);
+          resolve();
+        }
+        function onLoad() { finish(true); }
+        function onError() {
+          activeImg.removeEventListener('load', onLoad);
+          activeImg.removeEventListener('error', onError);
+          if (attempts < 3) {
+            attempts++;
+            retryTimer = setTimeout(start, 700 * attempts);
+          } else {
+            finish(false);
+          }
+        }
+        function start() {
+          if (settled) return;
+          // 如果页面原有元素已经成功加载，直接计为完成。
+          if (activeImg.complete) {
+            if (activeImg.naturalWidth > 0) finish(true);
+            else onError();
+            return;
+          }
+          activeImg.addEventListener('load', onLoad, { once: true });
+          activeImg.addEventListener('error', onError, { once: true });
+          if (!existing || attempts > 0) {
+            activeImg = new Image();
+            activeImg.addEventListener('load', onLoad, { once: true });
+            activeImg.addEventListener('error', onError, { once: true });
+            activeImg.src = url;
+          } else if (!activeImg.complete) {
+            // 原页面的图片元素已在加载时，只监听其结果，不额外改变 URL 或缓存策略。
+            retryTimer = setTimeout(function() {
+              if (!settled && activeImg.complete) {
+                if (activeImg.naturalWidth > 0) finish(true);
+                else onError();
+              }
+            }, 30000);
+          }
+        }
+        start();
+      });
+    }
+
+    // 图片全部完成（加载成功或完成重试）后才进入封面；不设置提前跳过的总超时。
+    return Promise.all(uniqueUrls.map(loadOne)).then(function() {
+      if (bar) bar.style.width = '100%';
+    });
+  }
+
+  function showIntro() {
+    document.getElementById('boot-layer').classList.add('hidden');
+    document.getElementById('intro-layer').classList.add('show');
+  }
+
+  function enterQuestionnaire() {
+    const intro = document.getElementById('intro-layer');
+    if (!intro || intro.classList.contains('leaving')) return;
+    intro.classList.add('leaving');
+    setTimeout(function () {
+      intro.classList.remove('show', 'leaving');
+      intro.style.display = 'none';
+      document.getElementById('main-app').classList.add('show');
+      applySceneAtmosphere('s1');
+      try {
+        const bgm = document.getElementById('bgm');
+        if (bgm) { bgm.volume = 0.5; bgm.play().catch(function(){}); }
+      } catch (e) {}
+    }, 450);
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    preloadAll().then(showIntro);
+    const intro = document.getElementById('intro-layer');
+    intro.addEventListener('click', enterQuestionnaire);
+    intro.addEventListener('touchend', function (e) { e.preventDefault(); enterQuestionnaire(); }, { passive: false });
+
+    // 视频弹窗关闭
+    const edgeBtn = document.getElementById('btnEdgeDone');
+    if (edgeBtn) {
+      function closeVideo(e) {
+        if (e) e.preventDefault();
+        const ov = document.getElementById('videoOverlay');
+        const v = document.getElementById('edgeVideo');
+        if (ov) ov.classList.remove('show');
+        if (v) { try { v.pause(); v.currentTime = 0; } catch (err) {} }
+        const next = window.__pendingVideoNext;
+        window.__pendingVideoNext = null;
+        if (next) go(next);
+      }
+      edgeBtn.addEventListener('click', closeVideo);
+      edgeBtn.addEventListener('touchend', function (e) { e.preventDefault(); closeVideo(e); }, { passive: false });
+    }
+
+    // 图片弹窗 → 倒计时
+    const imgBtn = document.getElementById('btnImgPopupOk');
+    if (imgBtn) {
+      imgBtn.addEventListener('click', function() {
+        const imgOv = document.getElementById('imgPopupOverlay');
+        if (imgOv) imgOv.classList.remove('show');
+        const next = window.__pendingS39Next;
+        window.__pendingS39Next = null;
+        runCountdown(10, next, null);
+      });
+    }
+
+    document.querySelectorAll('.choice').forEach(btn => {
+      btn.addEventListener('click', async function (e) {
+        const oc = this.getAttribute('onclick') || '';
+        if (oc.includes('location.reload')) return;
+
+        // 输入题
+        if (this.hasAttribute('data-input')) {
+          e.preventDefault();
+          e.stopPropagation();
+          const scene = this.closest('.scene');
+          if (scene) {
+            scene.querySelectorAll('.choice').forEach(c => c.classList.remove('selected'));
+            this.classList.add('selected');
+          }
+          openInput(this.getAttribute('data-input'), this.getAttribute('data-next'), this);
+          return;
+        }
+
+        // 视频寸止（s5）
+        if (this.hasAttribute('data-video-gate')) {
+          e.preventDefault();
+          e.stopPropagation();
+          const scene = this.closest('.scene');
+          if (scene) {
+            scene.querySelectorAll('.choice').forEach(c => c.classList.remove('selected'));
+            this.classList.add('selected');
+          }
+          if (!this.dataset.recorded) {
+            recordAnswer(getCurrentId(), this.textContent.trim().replace(/\s+/g, ' '));
+            this.dataset.recorded = '1';
+          }
+          window.__pendingVideoNext = this.getAttribute('data-next');
+          const ov = document.getElementById('videoOverlay');
+          const v = document.getElementById('edgeVideo');
+          if (ov) ov.classList.add('show');
+          if (v) {
+            try {
+              v.muted = false;
+              v.loop = true;
+              v.currentTime = 0;
+              const p = v.play();
+              if (p && p.catch) p.catch(function(){ v.muted = true; v.play().catch(function(){}); });
+            } catch (err) {}
+          }
+          return;
+        }
+
+        // s39 特殊流程：来咯 → 倒计时（带图片）→ 射叭
+        if (this.hasAttribute('data-s39-special')) {
+          e.preventDefault();
+          e.stopPropagation();
+          const scene = this.closest('.scene');
+          if (scene) {
+            scene.querySelectorAll('.choice').forEach(c => c.classList.remove('selected'));
+            this.classList.add('selected');
+          }
+          if (!this.dataset.recorded) {
+            recordAnswer(getCurrentId(), this.textContent.trim().replace(/\s+/g, ' '));
+            this.dataset.recorded = '1';
+          }
+          const next = this.getAttribute('data-next');
+          // 先黑屏提示
+          await playFx('black', '来咯～🖤', 2000);
+          // 直接进入带图片的倒计时
+          runCountdown(10, next, this);
+          return;
+        }
+
+        // 倒计时
+        if (this.hasAttribute('data-countdown')) {
+          e.preventDefault();
+          e.stopPropagation();
+          const scene = this.closest('.scene');
+          if (scene) {
+            scene.querySelectorAll('.choice').forEach(c => c.classList.remove('selected'));
+            this.classList.add('selected');
+          }
+          runCountdown(parseInt(this.getAttribute('data-countdown'), 10) || 10, this.getAttribute('data-next'), this);
+          return;
+        }
+
+        const scene = this.closest('.scene');
+        if (scene) {
+          scene.querySelectorAll('.choice').forEach(c => c.classList.remove('selected'));
+          this.classList.add('selected');
+        }
+        if (this.hasAttribute('data-amount')) {
+          const v = this.getAttribute('data-amount');
+          selectedAmount = isNaN(parseFloat(v)) ? v : parseFloat(v);
+        }
+        if (!this.dataset.recorded) {
+          recordAnswer(getCurrentId(), this.textContent.trim().replace(/\s+/g, ' '));
+          this.dataset.recorded = '1';
+        }
+        const fx = this.getAttribute('data-fx');
+        if (fx) {
+          e.preventDefault();
+          e.stopPropagation();
+          const parts = fx.split(':');
+          await playFx(parts[0], (parts.slice(1).join(':') || '').replace(/\|/g, '\n'));
+        }
+        const next = this.getAttribute('data-next');
+        if (next) go(next);
+      }, true);
+    });
+
+    document.querySelectorAll('[data-nav-prev]').forEach(b => b.addEventListener('click', goPrev));
+  });
+</script>
+
+<script>
+(function () {
+  "use strict";
+  function isEditable(target) {
+    return !!(target && target.closest && target.closest("input, textarea, select, [contenteditable='true']"));
+  }
+  function block(e) {
+    if (isEditable(e.target)) return;
+    e.preventDefault();
+    e.stopPropagation();
+    return false;
+  }
+  document.addEventListener("contextmenu", block, true);
+  document.addEventListener("copy", block, true);
+  document.addEventListener("cut", block, true);
+  document.addEventListener("dragstart", block, true);
+  document.addEventListener("selectstart", block, true);
+  document.addEventListener("beforecopy", block, true);
+  document.addEventListener("keydown", function (e) {
+    if (isEditable(e.target)) return;
+    if ((e.ctrlKey || e.metaKey) && ["c","a","s","u","p"].includes(String(e.key).toLowerCase())) {
+      block(e);
+    }
+    if (e.key === "F12") block(e);
+  }, true);
+})();
+</script>
+
+</body>
+</html>
